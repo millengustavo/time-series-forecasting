@@ -162,6 +162,99 @@ Generate forecasts based on plausible scenarios (e.g.: "best", "middle", "worst"
 - Apply a structure approach
 
 # 5. Time series regression models
+Forecast the time series of interest assuming it has a linear relationship with other time series
+
+## Linear Regression
+Assumptions about the errors:
+- mean = 0, otherwise forecasts systematically biased
+- not autocorrelated, otherwise there is still information to be exploited
+- unrelated to the predictor vars, otherwise more info should be included in the systematic part of the model
+
+### Goodness-of-fit
+**Coefficient of determination (R²)**: proportion of variation in the forecast variable that is accounted by the regression model. Range between 0 (worst) and 1 (best)
+
+> Validating performance on the test data is much better than measuring R² on the training data
+
+### Standard error of the regression
+"Residual standard error"
+
+### Evaluating the regression model
+Residuals (training-set errors): difference between observed and fitted values. Average of the residuals = 0 and correlations between residuals and predictor = 0
+
+#### ACF plot of residuals
+If there is autocorrelation in the residuals -> info left over which should be accounted in the model -> usually have larger prediction intervals
+
+**Breusch-Godfrey**: Lagrange Multiplier (LM) test for serial correlation -> similar to Ljung-Box test, but specifically for regression models
+
+#### Histogram of residuals
+Check whether the residuals are normally distributed, not essential, but makes the calculation of prediction intervals easier
+
+#### Residual plots against predictors
+If the scatterplots show a pattern, the relationship may be nonlinear and the model will need to be modified
+
+> Also plot the residuals against predictors that are **not** in the model -> if show pattern, the corresponding predictor may need to be added to the model
+
+#### Residual plots against fitted values
+If pattern is observed, there may be "heteroscedasticity" in the errors -> variance of the residuals may not be constant -> transformation of the forecast variable (e.g., logarithm or square root)
+
+#### Outliers and influential observations
+- outliers -> obs with extreme values compared to the majority of the data
+- influential observations -> obs that have a large influence on the estimated coeff of a regression model
+
+#### Spurious regression
+More often than not, time series data are "non-stationary" -> values do not fluctuate around a constant mean or with a constant variance
+
+Regressing non-stationary time series can lead to spurious regressions. Signs: High R², high residual autocorrelation
+
+#### Some useful predictors
+- Trend
+- Dummy variables: when a predictor is a categorical variable
+- Intervention variables: when the effect lasts only for one period -> "spike" variable
+- Trading days
+- Distributed lags
+- Fourier series: alternative to seasonal dummy vars, especially for long seasonal periods. Regression model containing Fourier terms -> **harmonic regression**
+
+## Selecting predictors
+
+### Not recommended
+- Plot forecast var against a particular predictor -> not always possible to see a relationship without accounting for other predictors
+- Multiple linear regression with all predictors and disregard vars with high p-value
+
+### Recommended
+- Adjusted R² (tends to select too many predictors)
+- **Cross-validation (CV)**
+- Akaike's Information Criterion (AIC)
+- **Corrected Akaike's Information Criterion (AICc)**
+- Schwarz's Bayesian Information Criterion (BIC)
+
+> Best subset regression: fit all potential regression models and choose the best (based on the criteria above) -> "all possible subsets" regression
+
+### Stepwise regression
+
+- **Backwards stepwise regression**: starts with all predictors, remove one at a time, keep the model if improves, iterate until no further improvement -> bad if n_predictors is very large
+- **Forward stepwise regression**: starts with one, add one at a time, the one the most improves is kept, iterate...
+
+> Not guaranteed to lead to the best possible model
+
+### Ex-ante vs ex-post forecasts
+- Ex-ante: made using only info available in advance
+- Ex-post: made using later info on the predictors (not genuine forecasts, but useful for studying the behaviour of forecasting models)
+
+### [Matrix formulation](https://otexts.com/fpp2/regression-matrices.html)
+
+### Correlation, causation and forecasting
+> It is important not to confuse correlation with causation, or causation with forecasting
+
+Correlations are useful for forecasting, even when there is no causal relationship. Often a better model is possible if a causal mechanism can be determined.
+
+#### Confounded predictors
+Two vars are **confounded** when their effects on the forecast variable cannot be separated
+
+> Confounding: not a problem for forecasting. However, it becomes a problem with scenario forecasting -> take account of the relationships between predictors. Also a problem if some historical analysis of the contributions of various predictors is required.
+
+#### Multicollinearity and forecasting
+**Multicollinearity**: when similar info is provided by 2+ predictors in a multiple regression (e.g., dummy var trap). Generally not a problem if you are not interested in the specific contributions of each predictor, except when there is perfect correlation
+
 # 6. Time series decomposition
 # 7. Exponential smoothing
 # 8. ARIMA models
