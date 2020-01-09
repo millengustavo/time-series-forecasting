@@ -256,6 +256,71 @@ Two vars are **confounded** when their effects on the forecast variable cannot b
 **Multicollinearity**: when similar info is provided by 2+ predictors in a multiple regression (e.g., dummy var trap). Generally not a problem if you are not interested in the specific contributions of each predictor, except when there is perfect correlation
 
 # 6. Time series decomposition
+
+Three types of time series patterns:
+- trend-cycle (or just trend)
+- seasonality
+- remainder (anything else in the time series)
+
+## Time series components
+- **Additive decomposition**: if the magnitude of the seasonal fluctuations, or the variation around the trend-cycle, does not vary with the level of the time series
+- **Multiplicative decomposition**: when the variation in the seasonal pattern or the variation around the trend-cycle, appears to be proportional to the level of the time series -> common with economic time series
+
+> Alternative to using multiplicative: first transform the data -> variation appears to be stable over time -> use additive
+
+**Seasonally adjusted data**: if the seasonal component is removed from the original data
+
+> Seasonally adjusted series contain the remainder component as well as the trend-cycle. Therefore, they are not “smooth”, and “downturns” or “upturns” can be misleading. If the purpose is to look for turning points in a series, and interpret any changes in direction, then it is better to use the trend-cycle component rather than the seasonally adjusted data.
+
+## Moving averages
+First step in classical decomposition -> using MA to estimate the trend-cycle. The order of the moving average determines the smoothness of the trend-cycle estimate (larger order = smoother curve).
+
+Odd order -> symmetric MA
+
+Applying MA to a MA -> symmetric MA
+
+Most common use of centred MAs -> estimating the trend-cycle form seasonal data
+
+> A 2×12-MA can be used to estimate the trend-cycle of monthly data and a 7-MA can be used to estimate the trend-cycle of daily data with a weekly seasonality. Other choices for the order of the MA will usually result in trend-cycle estimates being contaminated by the seasonality in the data.
+
+### Weighted moving averages
+Combinations of moving averages result in weighted moving averages
+
+Advantage: yield a smoother estimate of the trend-cycle
+
+## Classical decomposition (*not recommended*)
+Starting point for most other methods of time series decomposition
+- don't estimate trend-cycle/remainder for first and last few observations
+- tends to over-smooth rapid rises and falls
+- unable to capture seasonal changes over time
+- not robust to unusual values
+
+## X11 decomposition
+for quarterly and monthly data
+
+## SEATS decomposition
+"Seasonal Extraction in ARIMA Time Series": works only with quarterly and monthly data
+
+## STL decomposition
+"Seasonal and Trend decomposition using Loess"
+
+- handle any type of seasonality
+- seasonal component is allowed to change over time
+- smoothness of the trend-cycle can be controlled by the user
+- can be robust to outliers
+- doesn't handle trading day or calendar variation automatically
+
+## Measuring strength of trend and seasonality
+Useful when you have a large collection of time series and you need to find the series with the most trend or the most seasonality
+
+## Forecasting with decomposition
+Decomposition is primarily useful for studying time series data and exploring historical changes over time, but can also be used in forecasting
+
+Forecast the seasonal component and the seasonally adjusted component separately:
+- assume the seasonal component is unchanging (or changing slowly) -> seasonal naïve method
+- to forecast the seasonally adjusted component -> any non-seasonal forecasting method may be used
+
+
 # 7. Exponential smoothing
 # 8. ARIMA models
 # 9. Dynamic regression models
