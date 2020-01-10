@@ -322,6 +322,62 @@ Forecast the seasonal component and the seasonally adjusted component separately
 
 
 # 7. Exponential smoothing
+> Forecasts produced using exponential smoothing methods are weighted averages of past observations, with the weights decaying exponentially as the observations get older. In other words, the more recent the observation the higher the associated weight
+
+## Simple exponential smoothing (SES)
+For data with no clear trend or seasonal pattern
+
+### Optimisation
+Exponential smoothing method requires the smoothing parameters and the initial values to be chosen
+- subjective manner
+- estimate from observed data -> minimising the SSE (sum of squared errors)
+
+## Trend methods
+### Holt's linear trend method
+Extends simple exponential smoothing to allow the forecasting of data with a trend
+
+### Damped trend methods
+Introduce a parameter that "dampens" the trend to a flat line some time in the future
+
+> As forecasting tasks can vary by many dimensions (length of forecast horizon, size of test set, forecast error measures, frequency of data, etc.), it is unlikely that one method will be better than all others for all forecasting scenarios. What we require from a forecasting method are **consistently sensible forecasts**, and these should be frequently evaluated against the task at hand.
+
+## Holt-Winters' seasonal method
+Extends Holt's method to capture seasonality
+- Additive
+- Multiplicative
+
+Additive preferred when the seasonal variations are roughly constant. Multiplicative preferred when the seasonal variations are changing proportional to the level of the series
+
+## A taxonomy of exponential smoothing methods
+By considering variations in the combinations of the trend and seasonal components, nine exponential smoothing methods are possible
+
+## Innovations state space models for exponential smoothing
+Statistical models generate point forecasts, but can also generate forecast intervals -> stochastic (or random) data generating process that can produce an entire forecast distribution
+
+**State space models**: model consists of a measurement equation (observed data) and state equations (unobserved components or states: level, trend, seasonal change over time)
+- ETS(A,N,N): simple exponential smoothing with additive errors
+- ETS(M,N,N): simple exponential smoothing with multiplicative errors
+- ETS(A,A,N): Holt’s linear method with additive errors
+- ETS(M,A,N): Holt’s linear method with multiplicative errors
+- Other ETS models
+
+## Estimation and model selection
+### Estimating ETS models
+- minimize SSE
+- maximize "likelihood" (probability of the data arising from the specified model)
+
+### Model selection
+Information criteria can be used for model selection on the ETS statistical framework
+- AIC
+- AICc
+- BIC
+
+## Forecasting with ETS models
+ETS point forecasts are equal to the medians of the forecast distributions
+
+### Prediction intervals
+Big advantage: prediction intervals can also be generated 
+
 # 8. ARIMA models
 # 9. Dynamic regression models
 # 10. Forecasting hierarchical or grouped time series
