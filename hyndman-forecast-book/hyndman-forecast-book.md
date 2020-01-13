@@ -379,6 +379,108 @@ ETS point forecasts are equal to the medians of the forecast distributions
 Big advantage: prediction intervals can also be generated 
 
 # 8. ARIMA models
+Exponential smoothing -> describe the trend and seasonality 
+
+ARIMA -> describe the autocorrelations
+
+## Stationarity and differencing
+**Stationary time series**: properties do not depend on the time at which the series is observed. Time series with trends, or with seasonality, are not stationary. White noise is stationary
+
+Stationary time series will have no predictable patterns in the long-term -> time plot roughly horizontal, with constant variance
+
+### Differencing
+Differencing: computing the differences between consecutive observations = "first differences" -> one way to make a non-stationary time series stationary
+
+Transformations such as logarithms can help to stabilise the variance of a time series. Differencing can help stabilise the mean of a time series by removing changes in the level of a time series, and therefore eliminating (or reducing) trend and seasonality.
+
+> **ACF Plot**: For a stationary time series, the ACF will drop to zero relatively quickly, while the ACF of non-stationary data decreases slowly.
+
+### Random walk model
+Widely used for non-stationary data -> financial, economic data
+
+y_t = y_(t-1) + white_noise_t
+
+Typically have:
+- long periods of apparent trends up or down
+- sudden and unpredictable changes in direction
+
+Underpins naïve forecasts
+
+### Second-order differencing
+When difference data not appear stationary. "Change in the changes". Almost never necessary to go beyond second-order.
+
+### Seasonal differencing
+Seasonal difference: difference between an observation and the previous observation from the same season
+
+> There is a degree of subjectivity in selecting which differences to apply. It is important that if differencing is used, the differences are interpretable.
+
+### Unit root tests
+Statistical hypothesis tests of stationarity that are designed for determining whether differencing is required.
+
+- Kwiatkowski-Phillips-Schmidt-Shin (KPSS) test: null hypothesis = data stationary -> `p-value < 0.05` -> differencing is required
+
+## Backshift notation
+`L` -> "lag"
+
+`B` -> "backshift"
+
+B¹²y_t = y_(t-12)
+
+## Autoregressive models
+Forecast the variable of interest using a linear combination of *past values of the variable*
+
+**AR(p) model**: an autoregressive model of order p
+
+## Moving average models
+Uses past forecast errors in a regression-like model
+
+**MA(q) model**: a moving average model of order q
+
+> Moving average models should not be confused with the moving average smoothing. A moving average model is used for forecasting future values, while moving average smoothing is used for estimating the trend-cycle of past values
+
+MA model is called **invertible**
+
+## Non-seasonal ARIMA models
+Combine differencing with autoregression and a moving average model
+
+**ARIMA(p,d,q) model**
+- p = order of the autoregressive part
+- d = degree of first differencing involved
+- q = order of the moving average part
+
+### ACF and PACF plots
+Sometimes used to determine appropriate values for `p` and `q`
+
+Extensible explanation [here](https://otexts.com/fpp2/non-seasonal-arima.html)
+
+## Estimation and order selection
+### Maximum likelihood estimation (MLE)
+Finds the values of the parameters which maximise the probability of obtaining the data that we have observed
+
+## Information Criteria
+Good models are obtained by minimising the Akaike's Information Criterion (AIC) or AICc or BIC
+
+Tend not to be good for selecting `d`, but only for selecting `p` and `q`
+
+## Forecasting
+> The prediction intervals for ARIMA models are based on assumptions that the residuals are uncorrelated and normally distributed. If either of these assumptions does not hold, then the prediction intervals may be incorrect. For this reason, always plot the ACF and histogram of the residuals to check the assumptions before producing prediction intervals.
+
+## Seasonal ARIMA models
+Formed by including additional seasonal terms in the ARIMA models
+
+The seasonal part of the model consists of terms that are similar to the non-seasonal components of the model, but involve backshifts of the seasonal period
+
+> The seasonal part of an AR or MA model will be seen in the seasonal lags of the PACF and ACF
+
+Good examples in the book [here](https://otexts.com/fpp2/seasonal-arima.html)
+
+## ARIMA vs ETS
+> Myth: ARIMA models are more general than exponential smoothing
+
+All ETS models are non-stationary, while some ARIMA models are stationary
+
+ETS models with seasonality or non-damped trend or both have two unit roots (i.e., they need two levels of differencing to make them stationary). All other ETS models have one unit root (they need one level of differencing to make them stationary).
+
 # 9. Dynamic regression models
 # 10. Forecasting hierarchical or grouped time series
 # 11. Advanced forecasting methods
