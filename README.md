@@ -2,6 +2,8 @@
 
 - Forecasting: Principles and Practice - Rob J Hyndman and George Athanasopoulos [[open notes]](hyndman-forecast-book/hyndman-forecast-book.md)
 
+- Forecasting at Scale - Sean J. Taylor and Benjamin Letham [[open notes]](prophet-forecast-scale/prophet-forecast-scale.md)
+
 # Example forecast applications
 
 ## Temperature forecast for some Brazilian cities 
