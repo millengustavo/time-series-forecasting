@@ -64,7 +64,25 @@ Parameters to increase/decrease trend flexibility and strength of the seasonalit
 
 > Analyist-in-the-Loop Modeling: blends the advantages of statistical and judgemental forecasts. Lets analysts apply judgement to forecasts through a small set of intuitive model parameters and options, while retaining the ability to fall back on fully automated statistical forecasting when necessary
 
-
 # 4. Automating Evaluation of Forecasts
+- Use of baseline forecasts
+- Modeling forecast accuracy: mean absolute percentage error (MAPE) -> for interpretability
+
+## Simulated Historical Forecasts
+- Produce `K` forecasts at various cutoff points in the history
+- Simulate the errors we would have made hade we used this forecasting method at those points in the past
+- Simple, easy to explain and relatively uncontroversial for generating insight into forecast errors
+
+Issues to be aware:
+- The more simulated forecasts we make, the more correlated their estimates of error are
+- Forecasting methods can perform better or worse with more data
+
+## Identifying Large Forecast Errors
+- When the forecast has large errors relative to the baselines, the model may be misspecified. Analysts can adjust the trend model or the seasonality, as needed
+- Large errors for all methods on a particular date are suggestive of outliers. Analysts can identify outliers and remove them.
+- When the SHF error for a method increases sharply from one cutoff to the next, it could indicate that the data generating process has changed. Adding changepoints or modeling different phases separately may address the issue.
 
 # 5. Conclusion
+Prophet in summary:
+- Simple, modular regression model that often works well with default parameters, and that allows analysts to select the components that are relevant to their forecasting problem and easily make adjustmens as needed
+- Has a system for measuring and tracking forecast accuracy, and flagging forecasted that should be checked manually to help analysts make incremental improvements
