@@ -482,6 +482,28 @@ All ETS models are non-stationary, while some ARIMA models are stationary
 ETS models with seasonality or non-damped trend or both have two unit roots (i.e., they need two levels of differencing to make them stationary). All other ETS models have one unit root (they need one level of differencing to make them stationary).
 
 # 9. Dynamic regression models
+Extend ARIMA models in order to allow other information to be included in the models
+
+## Estimation
+Minimizing sum of squared errors or maximum likelihood estimation can be used
+
+## Forecasting
+Forecast the regression part of the model and the ARIMA part of the model, and combine the results
+
+In order to obtain forecasts we first need to forecast the predictors. When the predictors are known into the future, this is straightforward. But when the predictors are themselves unknown, we must either model them separately, or use assumed future values for each predictor.
+
+## Stochastic and deterministic trends
+> There is an implicit assumption with deterministic trends that the slope of the trend is not going to change over time. On the other hand, stochastic trends can change, and the estimated growth is only assumed to be the average growth over the historical period, not necessarily the rate of growth that will be observed into the future. Consequently, it is safer to forecast with stochastic trends, especially for longer forecast horizons, as the prediction intervals allow for greater uncertainty in future growth.
+
+## Dynamic harmonic regression
+Long seasonal periods -> a dynamic regression with Fourier terms is often better than other models
+
+"Disadvantage": the seasonal pattern is not allowed to change over time (usually remarkably constant)
+
+## Lagged predictors
+Sometimes, the impact of a predictor which is included in a regression model will not be simple and immediate. In these situations, we need to allow for lagged effects of the predictor.
+
+
 # 10. Forecasting hierarchical or grouped time series
 # 11. Advanced forecasting methods
 # 12. Some practical forecasting issues
