@@ -511,4 +511,48 @@ Often arise due to geographic divisions
 Challenge: require forecasts that are *coherent* across the aggregation structure
 
 # 11. Advanced forecasting methods
+
+## Complex seasonality
+Higher frequency time series often exhibit more complicated seasonal patterns
+
+### Dynamic harmonic regression with multiple seasonal periods
+Multiple seasonalities -> add Fourier terms for each seasonal period
+
+### TBATS models
+Combination of Fourier terms with an exponential smoothing state space model and a Box-Cox transformation, in a completely automated manner. Seasonality is allowed to change slowly over time. Can be slow to estimate, especially with long time series. Do not allow for covariates
+
+## Vector autoregressions
+Other models: unidirectional relationship -> forecast variable is influenced by the predictor variables
+
+Many cases: all variables affect each other
+
+Feedback relationships are allowed for in the vector autoregressive (VAR) framework. All variables are treated symmetrically, they are all modelled as if they all influence each other equally -> all variables are treated as "endogenous"
+
+Despite being atheoretical, VARs are useful in several contexts:
+- forecasting a collection of related variables
+- testing whether one variable is useful in forecasting another (basis of Grande causality tests)
+- impulse response analysis
+- forecast error variance decomposition
+
+## Neural network models
+Allow complex nonlinear relationships between the response variable and its predictors
+
+The predictors (or inputs) form the bottom layer, and the forecasts (or outputs) form the top layer. There may also be intermediate layers containing “hidden neurons”.
+
+### Neural network autoregression
+**NNAR model**: lagged values of the time series can be used as inputs to a neural network
+
+When it comes to forecasting, the network is applied iteratively. For forecasting one step ahead, we simply use the available historical inputs. For forecasting two steps ahead, we use the one-step forecast as an input, along with the historical data.
+
+## Bootstrapping and bagging
+
+There are at least four sources of uncertainty in forecasting using time series models:
+1. The random error term;
+2. The parameter estimates;
+3. The choice of model for the historical data;
+4. The continuation of the historical data generating process into the future.
+
+### Baggeg forecasts
+If we produce forecasts from each of the additional time series, and average the resulting forecasts, we get better forecasts than if we simply forecast the original time series directly. This is called “bagging” which stands for “**b**ootstrap **agg**regating”
+
 # 12. Some practical forecasting issues
