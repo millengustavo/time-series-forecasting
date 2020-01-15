@@ -503,7 +503,12 @@ Long seasonal periods -> a dynamic regression with Fourier terms is often better
 ## Lagged predictors
 Sometimes, the impact of a predictor which is included in a regression model will not be simple and immediate. In these situations, we need to allow for lagged effects of the predictor.
 
-
 # 10. Forecasting hierarchical or grouped time series
+Time series can often be naturally disaggregated by various attributes of interest. These categories are nested within the larger group categories, and so the collection of time series follow a hierarchical aggregation structure -> "hierarchical time series"
+
+Often arise due to geographic divisions
+
+Challenge: require forecasts that are *coherent* across the aggregation structure
+
 # 11. Advanced forecasting methods
 # 12. Some practical forecasting issues
