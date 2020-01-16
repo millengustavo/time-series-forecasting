@@ -556,3 +556,57 @@ There are at least four sources of uncertainty in forecasting using time series 
 If we produce forecasts from each of the additional time series, and average the resulting forecasts, we get better forecasts than if we simply forecast the original time series directly. This is called “bagging” which stands for “**b**ootstrap **agg**regating”
 
 # 12. Some practical forecasting issues
+
+### Weekly data
+Difficult to work because the seasonal period (number of weeks in a year) is both large and non-integer (~52.18). Even if approximate to 52, most methods won't handle such a large seasonal period efficiently
+
+- STL decomposition along with a non-seasonal method applied to the seasonally adjusted data
+- Dynamic harmonic regression model
+- TBATS model
+
+### Daily and sub-daily data
+Often involve multiple seasonal patterns -> we need to use a method that handles such complex seasonality
+
+## Ensuring forecasts stay within limits
+Transform the data using a scaled logit transform which maps (floor, cap) to the whole real line
+
+y = log((x-a)/(b-x))
+
+## Forecast combinations
+> The results have been virtually unanimous: combining multiple forecasts leads to increased forecast accuracy. In many cases one can make dramatic performance improvements by simply averaging the forecasts.
+
+While there has been considerable research on using weighted averages, or some other more complicated combination approach, using a simple average has proven hard to beat.
+
+## Prediction intervals for aggregates
+If the point forecasts are means, then adding them up will give a good estimate of the total. But prediction intervals are more tricky due to the correlations between forecast errors.
+
+A general solution is to use simulations
+
+## Backcasting
+Forecast in reverse time
+
+## Very long and very short time series
+### Forecasting very short time series
+The sample size required increases with the number of parameters to be estimated, and the amount of noise in the data.
+
+With short series, there is not enough data to allow some observations to be withheld for testing purposes, and even time series cross validation can be difficult to apply. The AICc is particularly useful here, because it is a proxy for the one-step forecast out-of-sample MSE
+
+### Forecasting very long time series
+Most time series models do not work well for very long time series. The problem is that real data do not come from the models we use. Also the optimisation of the parameters becomes more time consuming.
+
+> If we are only interested in forecasting the next few observations, one simple approach is to throw away the earliest observations and only fit a model to the most recent observations.
+
+## Dealing with missing values and outliers
+### Missing values
+It is worth considering whether the missingness will induce bias in the forecasting model. When it is not random, use a dynamic regression model, with dummy variables
+
+Some methods allow for missing values without any problems. Whey they cause errors:
+- assuming long enough series, we could just take the section of data after the last missing value
+- we could replace the missing values with estimates (i.e., interpolation)
+
+### Outliers
+All methods considered in the book will not work well if there are extreme outliers in the data -> replace them with missing or with a more consistent estimate
+
+> Simply replacing outliers without thinking about why they have occurred is a dangerous practice. They may provide useful information about the process that produced the data, and which should be taken into account when forecasting.
+
+Further reading: ["Forecasting in practice"](https://www.amazon.com/dp/0999064916/)
