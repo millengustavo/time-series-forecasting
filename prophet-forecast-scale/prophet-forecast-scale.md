@@ -3,6 +3,22 @@ Authors: Sean J. Taylor and Benjamin Letham
 
 [Source](https://peerj.com/preprints/3190.pdf)
 
+## Table of Contents
+- [Forecasting at Scale](#forecasting-at-scale)
+  - [Table of Contents](#table-of-contents)
+- [1. Introduction](#1-introduction)
+- [2. Features of Business Time Series](#2-features-of-business-time-series)
+- [3. The Prophet Forecasting Model](#3-the-prophet-forecasting-model)
+- [3.1 Trend Model](#31-trend-model)
+- [3.2 Seasonality](#32-seasonality)
+- [3.3 Holidays and Events](#33-holidays-and-events)
+- [3.4 Model fitting](#34-model-fitting)
+- [3.5 Analyist-in-the-Loop Modeling](#35-analyist-in-the-loop-modeling)
+- [4. Automating Evaluation of Forecasts](#4-automating-evaluation-of-forecasts)
+  - [Simulated Historical Forecasts](#simulated-historical-forecasts)
+  - [Identifying Large Forecast Errors](#identifying-large-forecast-errors)
+- [5. Conclusion](#5-conclusion)
+
 # 1. Introduction
 
 - Analysts who can produce high quality forecasts are quite rare because forecasting is a specialized skill requiring substantial experience
