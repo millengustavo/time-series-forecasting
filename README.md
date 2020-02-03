@@ -4,6 +4,8 @@
 
 - Forecasting at Scale - Sean J. Taylor and Benjamin Letham [[open notes]](prophet-forecast-scale/prophet-forecast-scale.md)
 
+- Statistical forecasting: notes on regression and time series analysis - Robert Nau [[open notes]](statistical-forecasting/statistical-forecasting.md)
+
 # Example forecast applications
 
 ## Temperature forecast for some Brazilian cities 
