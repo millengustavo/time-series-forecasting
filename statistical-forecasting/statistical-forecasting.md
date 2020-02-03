@@ -1,6 +1,8 @@
 # Statistical forecasting: notes on regression and time series analysis
 Authors: Robert Nau
 
+![cover](image001.gif)
+
 [Available here](https://people.duke.edu/~rnau/411home.htm)
 > "This web site contains notes and materials for an advanced elective course on statistical forecasting that is taught at the Fuqua School of Business, Duke University. It covers linear regression and time series forecasting models as well as general principles of thoughtful data analysis."
 
