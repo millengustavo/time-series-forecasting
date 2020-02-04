@@ -13,6 +13,22 @@ Authors: Robert Nau
   - [Principles and risks of forecasting](#principles-and-risks-of-forecasting)
     - [Signal vs. noise](#signal-vs-noise)
     - [Risks of forecasting](#risks-of-forecasting)
+  - [Get to know your data](#get-to-know-your-data)
+    - [PLOT THE DATA!](#plot-the-data)
+  - [Inflation adjustment ("deflation")](#inflation-adjustment-%22deflation%22)
+  - [Seasonal adjustment](#seasonal-adjustment)
+    - [Multiplicative adjustment](#multiplicative-adjustment)
+    - [Additive adjustment](#additive-adjustment)
+    - [Acronyms](#acronyms)
+  - [Stationarity and differencing](#stationarity-and-differencing)
+    - [Statistical stationarity](#statistical-stationarity)
+    - [First-difference](#first-difference)
+  - [The logarithm transformation](#the-logarithm-transformation)
+    - [Change in natural log ≈ percentage change](#change-in-natural-log-%e2%89%88-percentage-change)
+    - [Linearization of exponential growth and inflation](#linearization-of-exponential-growth-and-inflation)
+    - [Trend measured in natural-log units ≈ percentage growth](#trend-measured-in-natural-log-units-%e2%89%88-percentage-growth)
+    - [Errors measured in natural-log units ≈ percentage errors](#errors-measured-in-natural-log-units-%e2%89%88-percentage-errors)
+    - [Coefficients in log-log regressions ≈ proportional percentage changes](#coefficients-in-log-log-regressions-%e2%89%88-proportional-percentage-changes)
 - [2. Introduction to forecasting: the simplest models](#2-introduction-to-forecasting-the-simplest-models)
 - [3. Averaging and smoothing models](#3-averaging-and-smoothing-models)
 - [4. Linear regression models](#4-linear-regression-models)
@@ -50,6 +66,74 @@ You can't eliminate instrinsic risk and parameter risk, *you can and should try 
 - **Model risk**: risk of choosing the wrong model. *Most serious form of forecast error* -> can be reduced by following good statistical practices: Follow good practices for exploring the data, understand the assumptions that are behind the models and test the assumptions.
 
 If the errors are not pure noise -> there is some pattern in them, and you could make them smaller by adjusting the model to explain that pattern
+
+## Get to know your data
+- Where did it come from?
+- Where has it been?
+- Is it clean or dirty?
+- In what units is it measured?
+
+> Assembling, cleaning, adjusting and documenting the units of the data is often the most tedious step of forecasting
+
+### PLOT THE DATA!
+You should graph your data to get a feel for its qualitative properties -> your model must accommodate these features and ideally it should shed light on their underlying causes
+
+## Inflation adjustment ("deflation")
+Accomplished by dividing a monetary time series by a price index, such as the Consumer Price Index (CPI) -> uncover the real growth
+- original series: "nominal dollars" or "current dollars"
+- deflated series: "constant dollars"
+
+> Not always necessary, sometimes forecasting the nominal data or log transforming for stabilizing the variance is simpler
+
+Inflation adjustment is only appropriated for money series. If a non-monetary series shows signs of exponential growth or increasing variance -> try a logarithm transformation
+
+## Seasonal adjustment
+### Multiplicative adjustment
+Increasing amplitude of seasonal variations is suggestive of a multiplicative seasonal pattern -> can be removed by **multiplicative seasonal adjustment**: dividing each value of the time series by a seasonal index that is representative of normal typically observed in that season
+
+### Additive adjustment
+For time series whose seasonal variations are roughly constant in magnitude, independent of the current average level of the series -> adding or subtracting a quantity that represents the absolute amount by which the value in that season of the year tends to be below or above normal, as estimated from past data
+
+> Additive seasonal patterns are somewhat rare, but if applying log transform -> you should use additive rather than multiplicative
+
+### Acronyms
+- **SA**: seasonally adjusted
+- **NSA**: not seasonally adjusted
+- **SAAR**: seasonally adjusted annual rate -> each period's value has been adjusted for seasonality and then multiplied by the number of periods in a year, as though the same value had been obtained in every period for a whole year
+
+## Stationarity and differencing
+### Statistical stationarity
+A stationary time series is one whose statistical properties such as mean, variance, autocorrelation, etc. are all constant over time. Most statistical forecasting methods are based on the assumption that the time series can be rendered approximately stationary (i.e., "stationarized") through the use of mathematical transformations
+
+- **trend-stationary**: series has a stable long-run rend and tends to revert to the trend line following a disturbance -> to stationarize it = detrending
+- **difference-stationary**: if the mean, variance, and autocorrelations of the original series are not constant in time, even after detrending, perhaps the statistics of the changes in the series between periods or between seasons will be constant
+
+> **Unit root test**: to understand if a series is trend-stationary or difference-stationary
+
+### First-difference
+Series of changes from one period to the next
+- **random walk model**: if first-difference of a series is stationary and also completely random (not autocorrelated)
+- **ETS or ARIMA**: can be used when the first-difference of a series is stationary but not completely random (its value at period t is autocorrelated with its value at earlier periods)
+
+## The logarithm transformation
+### Change in natural log ≈ percentage change
+**Small** changes in the natural log of a variable are directly interpretable as percentage changes to a very close approximation
+
+### Linearization of exponential growth and inflation
+The log transformation converts the exponential growth pattern to a linear growth pattern, and it simultaneously converts the multiplicative (proportional-variance) seasonal pattern to an additive (constant-variance) seasonal pattern
+
+> Logging a series often has an effect very similar to deflating: it straightens out exponential growth patterns and reduces heteroscedasticity (i.e., stabilizes variance). Logging is therefore a "poor man's deflator" which does not require any external data
+
+**Geometric random walk**: logging the data before fitting a random walk model -> commonly used for stock price data
+
+### Trend measured in natural-log units ≈ percentage growth
+Usually the trend is estimated more precisely by fitting a statistical model that explicitly includes a local or global trend parameter, such as a linear trend or random-walk-with-drift or linear exponential smoothing model.  When a model of this kind is fitted in conjunction with a log transformation, its trend parameter can be interpreted as a percentage growth rate.
+
+### Errors measured in natural-log units ≈ percentage errors
+If you look at the error statistics in logged units, you can interpret them as percentages if they are not too large -- if the standard deviation is 0.1 or less
+
+### Coefficients in log-log regressions ≈ proportional percentage changes
+In many economic situations (particularly price-demand relationships), the marginal effect of one variable on the expected value of another is linear in terms of percentage changes rather than absolute changes
 
 # 2. Introduction to forecasting: the simplest models
 
