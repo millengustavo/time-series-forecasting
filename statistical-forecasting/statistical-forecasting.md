@@ -30,6 +30,9 @@ Authors: Robert Nau
     - [Errors measured in natural-log units ≈ percentage errors](#errors-measured-in-natural-log-units-%e2%89%88-percentage-errors)
     - [Coefficients in log-log regressions ≈ proportional percentage changes](#coefficients-in-log-log-regressions-%e2%89%88-proportional-percentage-changes)
 - [2. Introduction to forecasting: the simplest models](#2-introduction-to-forecasting-the-simplest-models)
+  - [Review of basic statistics and the simplest forecasting model: the sample mean](#review-of-basic-statistics-and-the-simplest-forecasting-model-the-sample-mean)
+      - [Why *squared* error?](#why-squared-error)
+      - [Fundamental law of forecasting risk](#fundamental-law-of-forecasting-risk)
 - [3. Averaging and smoothing models](#3-averaging-and-smoothing-models)
 - [4. Linear regression models](#4-linear-regression-models)
 - [5. ARIMA models for time series forecasting](#5-arima-models-for-time-series-forecasting)
@@ -136,6 +139,44 @@ If you look at the error statistics in logged units, you can interpret them as p
 In many economic situations (particularly price-demand relationships), the marginal effect of one variable on the expected value of another is linear in terms of percentage changes rather than absolute changes
 
 # 2. Introduction to forecasting: the simplest models
+## Review of basic statistics and the simplest forecasting model: the sample mean
+Historical sample mean (or constant model, or intercept-only regression): if the series consists of i.i.d. values, the sample mean should be the next value if the goal is to minimize MSE
+
+#### Why *squared* error?
+- the central value around which the um of squared deviations are minimized is the sample mean
+- variances are additive when random variables that are statistically independent are added together
+- large errors often have disproportionately worse consequences than small errors, hence the squared error is more representative of the economic consequences of error
+- variances and covariances play a key rola in normal distribution theory and regression analysis
+
+> nonlinear transformations of the data (e.g., log or power transformations) can often be used to turn skewed distributions into symmetric (ideally normal) ones, allowing such data to be well fitted by models that focus on mean values.
+
+#### Fundamental law of forecasting risk
+```
+Variance of forecasting risk = 
+variance of intrinsic risk + 
+variance of parameter risk
+```
+
+Confidence intervals: sort like a probability, but not exactly -> there's an x% probability that your future data will fall in your x% confidence interval for the forecast
+
+```
+Confidence interval = 
+forecast ± 
+(critical t-value) × (standard error of forecast)
+```
+
+95% confidence interval is (roughly) the forecat "plus-or-minus two standard errors"
+
+> A rule of thumb: when adjusted R-squared is fairly small (say, less than 20%), the percentage by which the standard error of the regression model is less than the standard error of the mean model is roughly one-half of adjusted R-squared.
+
+t-stats, P-values, and R-squared, and other test statistics are numbers you should know how to interpret and use, but they are not the most important numbers in your analysis and they are not the bottom line:
+- what new things have you learned from your data?
+- what assumptions does your model make?
+- would these assumptions make sense to someone else?
+- would a simpler model perform almost as well?
+- how accurate are your model's predictions?
+- how accurate it is likely to be to predict the future?
+- how good are the inferences and decisions?
 
 # 3. Averaging and smoothing models
 
