@@ -33,6 +33,9 @@ Authors: Robert Nau
   - [Review of basic statistics and the simplest forecasting model: the sample mean](#review-of-basic-statistics-and-the-simplest-forecasting-model-the-sample-mean)
       - [Why *squared* error?](#why-squared-error)
       - [Fundamental law of forecasting risk](#fundamental-law-of-forecasting-risk)
+  - [Notes on the random walk model](#notes-on-the-random-walk-model)
+    - [The geometric random walk model](#the-geometric-random-walk-model)
+    - [Reasons for using the random walk model](#reasons-for-using-the-random-walk-model)
 - [3. Averaging and smoothing models](#3-averaging-and-smoothing-models)
 - [4. Linear regression models](#4-linear-regression-models)
 - [5. ARIMA models for time series forecasting](#5-arima-models-for-time-series-forecasting)
@@ -177,6 +180,31 @@ t-stats, P-values, and R-squared, and other test statistics are numbers you shou
 - how accurate are your model's predictions?
 - how accurate it is likely to be to predict the future?
 - how good are the inferences and decisions?
+
+## Notes on the random walk model
+Model assumes that *in each period the variable takes a random step away from its previous value, and the steps are independently and identically distributed in size (“i.i.d.”)*. This is equivalent to saying that the first difference of the variable is a series to which the mean model should be applied.
+
+> if you begin with a series that wanders all over the map, the first difference looks i.i.d. sequence -> random walk model is a potentially good candidate
+
+- without drift: all future values will equal the last observed value 
+- with drift: the average increase from one period to the next (estimated drift = slope = d)
+
+> **Square root of time rule**: The confidence interval for a k-period-ahead random walk forecast is wider than that of a 1-period-ahead forecast by a factor of square-root-of-k
+
+Are the daily changes statistically independent as well having a mean of zero? autocorrelation plot -> **random walk without drift**
+
+### The geometric random walk model
+The natural logarithm of the variable is assumed to walk a random walk, usually with drift
+
+Diff-logs are interpretable as (approximate) percentage changes
+
+> it is very hard to estimate the trend in a random-walk-with-drift model based on the mean growth that was observed in the sample of data unless the sample size is very large
+
+Fitting a random-walk-with-drift model to the logged series is equivalent to fitting the geometric random walk model to the original series. 
+
+### Reasons for using the random walk model
+- If you see what looks like pure noise (i.i.d. variations) after performing a 1st -difference or diff-log transformation, then your data is telling you that you that it is a random walk. This isn’t very exciting in terms of the point forecasts you should make (“next month will be the same as last month, plus average growth”), but it has very important implications in terms of how much uncertainty there is in forecasting more than one period ahead.
+- benchmark against which to compare more complicated time series models, particularly regression models
 
 # 3. Averaging and smoothing models
 
