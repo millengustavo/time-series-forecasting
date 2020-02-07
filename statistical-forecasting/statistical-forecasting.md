@@ -36,6 +36,7 @@ Authors: Robert Nau
   - [Notes on the random walk model](#notes-on-the-random-walk-model)
     - [The geometric random walk model](#the-geometric-random-walk-model)
     - [Reasons for using the random walk model](#reasons-for-using-the-random-walk-model)
+  - [Mean (constant) model](#mean-constant-model)
 - [3. Averaging and smoothing models](#3-averaging-and-smoothing-models)
 - [4. Linear regression models](#4-linear-regression-models)
 - [5. ARIMA models for time series forecasting](#5-arima-models-for-time-series-forecasting)
@@ -205,6 +206,23 @@ Fitting a random-walk-with-drift model to the logged series is equivalent to fit
 ### Reasons for using the random walk model
 - If you see what looks like pure noise (i.i.d. variations) after performing a 1st -difference or diff-log transformation, then your data is telling you that you that it is a random walk. This isn’t very exciting in terms of the point forecasts you should make (“next month will be the same as last month, plus average growth”), but it has very important implications in terms of how much uncertainty there is in forecasting more than one period ahead.
 - benchmark against which to compare more complicated time series models, particularly regression models
+
+## Mean (constant) model
+Predicting a variable whose values are i.i.d.
+
+**Sample mean**: by definition an unbiased predictor and minimizes the mean squared forecasting error regardless of the probability distribution -> it is the value around which the sum of squared deviations of the sample data is minimized
+
+*Standard error of the mean*: how accurate is the estimate of the sample mean -> equals the sample stdev divided by the sqrt of the sample size
+
+Central limit theorem -> large samples: 95% confidence interval = mean +- 2*stdev
+
+*Standard error of the forecast*: equal to the sample stdev * sqrt(1+1/n)
+
+Confidence interval for a forecast is the point forecast plus-or-minus the appropriate critical t-value times the standard error of the forecast
+
+> The critical t-value for a 50% confidence interval is approximately 2/3, so a 50% confidence interval is one-third the width of a 95% confidence interval. The nice thing about a 50% confidence interval is that it is a **"coin flip"** as to whether the true value will fall inside or outside of it, which is extremely easy to think about
+
+If we can find some mathematical transformation (e.g., differencing, logging, deflating, etc.) that converts the original time series into a sequence of values that are i.i.d., we can use the mean model to obtain forecasts and confidence limits for the transformed series, and then reverse the transformation to obtain corresponding forecasts and confidence limits for the original series.
 
 # 3. Averaging and smoothing models
 
