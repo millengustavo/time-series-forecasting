@@ -37,6 +37,7 @@ Authors: Robert Nau
     - [The geometric random walk model](#the-geometric-random-walk-model)
     - [Reasons for using the random walk model](#reasons-for-using-the-random-walk-model)
   - [Mean (constant) model](#mean-constant-model)
+  - [Linear trend model](#linear-trend-model)
 - [3. Averaging and smoothing models](#3-averaging-and-smoothing-models)
 - [4. Linear regression models](#4-linear-regression-models)
 - [5. ARIMA models for time series forecasting](#5-arima-models-for-time-series-forecasting)
@@ -223,6 +224,17 @@ Confidence interval for a forecast is the point forecast plus-or-minus the appro
 > The critical t-value for a 50% confidence interval is approximately 2/3, so a 50% confidence interval is one-third the width of a 95% confidence interval. The nice thing about a 50% confidence interval is that it is a **"coin flip"** as to whether the true value will fall inside or outside of it, which is extremely easy to think about
 
 If we can find some mathematical transformation (e.g., differencing, logging, deflating, etc.) that converts the original time series into a sequence of values that are i.i.d., we can use the mean model to obtain forecasts and confidence limits for the transformed series, and then reverse the transformation to obtain corresponding forecasts and confidence limits for the original series.
+
+## Linear trend model
+aka trend-line model: special case of a simple regression model in which the independent variable is just a time index variable.
+
+> R-squared = 0.143 -> the variance of the regression model's errors is 14.3% less than the variance of the mean model's errors, i.e., the model has "explained" 14.3% of the variance in the series
+
+If the model has succeeded in extracting all the "signal" from the data, there should be no pattern at all in the errors: the error in the next period should not be correlated with any previous errors:
+- **lag-1 autocorrelation**: should be very close to zero
+- **Durbin-Watson statistic**: ought to be very close to 2
+
+> trend lines have their use as visual aids, but are often poor for forecasting
 
 # 3. Averaging and smoothing models
 
