@@ -39,6 +39,8 @@ Authors: Robert Nau
   - [Mean (constant) model](#mean-constant-model)
   - [Linear trend model](#linear-trend-model)
   - [Random walk model](#random-walk-model)
+  - [Geometric random walk model](#geometric-random-walk-model)
+    - [More general random walk forecasting models](#more-general-random-walk-forecasting-models)
 - [3. Averaging and smoothing models](#3-averaging-and-smoothing-models)
 - [4. Linear regression models](#4-linear-regression-models)
 - [5. ARIMA models for time series forecasting](#5-arima-models-for-time-series-forecasting)
@@ -254,6 +256,20 @@ For a random-walk-with-drift, the forecast standard error is the sample standard
 > Random walk may look trivial -> naive model (always predict that tomorrow will be the same as today). The square-root-of-time pattern in its confidence bands for long-term forecasts is of profound importance in finance (it is the basis of the theory of options pricing), and the random walk model often provides a good benchmark against which to judge the performance of more complicated models
 
 RWM -> special case of an ARIMA model -> ARIMA(0, 1, 0)
+
+## Geometric random walk model
+Natural logarithm transformation: linearize exponential growth and stabilize variance of changes ("diff-log")
+
+> It can be dangerous to estimate the average rate of return to be expected in the future (let alone anticipate short-term changes in direction), by fitting straight lines to finite samples of data!
+
+**Geometric random walk model**:  Application of the random walk model to the logged series implies that the forecast for the next month's value of the original series will equal the previous month's value plus a constant percentage increase.
+
+In unlogged units, the 95% confidence limits for long-term forecasts are noticeably asymmetric
+
+### More general random walk forecasting models
+- RW model 1: basic geometric random walk -> assumes series in different periods are statistically independent (uncorrelated) and also identically distributed
+- RW model 2: assumes the series in different periods are statistically independent but not identically distributed
+- RW model 3: assumes that returns in different periods are uncorrelated but not otherwise independent. The **ARCH** (autoregressive conditional heteroscedasticity) and **GARCH** (generalized ARCH) models assume that the local volatility follows an autoregressive process, which is characterized by sudden jumps in volatility with a slow reversion to an average volatility
 
 # 3. Averaging and smoothing models
 
