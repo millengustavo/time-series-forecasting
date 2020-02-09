@@ -38,6 +38,7 @@ Authors: Robert Nau
     - [Reasons for using the random walk model](#reasons-for-using-the-random-walk-model)
   - [Mean (constant) model](#mean-constant-model)
   - [Linear trend model](#linear-trend-model)
+  - [Random walk model](#random-walk-model)
 - [3. Averaging and smoothing models](#3-averaging-and-smoothing-models)
 - [4. Linear regression models](#4-linear-regression-models)
 - [5. ARIMA models for time series forecasting](#5-arima-models-for-time-series-forecasting)
@@ -235,6 +236,24 @@ If the model has succeeded in extracting all the "signal" from the data, there s
 - **Durbin-Watson statistic**: ought to be very close to 2
 
 > trend lines have their use as visual aids, but are often poor for forecasting
+
+## Random walk model
+Time series with irregular growth -> predict the change from one period to the next (first difference)
+
+**autocorrelation at lag k** -> correlation between the variable and itself lagged by k periods
+
+- **random-walk-without-drift**: assumes that at each point, the series merely takes a random step away from its last recorded position, with steps whose mean value is zero -> values of the autocorrelations are not significantly different than zero (95% confidence interval), no change from one period to the next, because past data provides no information about the direction of future movements
+- **random-walk-with-drift**: mean step size is some nonzero value
+
+In the random-walk-without-drift model, the standard error of the 1-step ahead forecast is the root-mean-squared-value of the period-to-period changes
+
+For a random-walk-with-drift, the forecast standard error is the sample standard deviation of the period-to-period changes.
+
+"Square root of time" rule for the errors of random walk forecasts: the standard error of a k-step-ahead forecast is larger than that of the 1-step-ahead forecast by a factor of square-root-of-k. This explains the sideways-parabola shape of the confidence bands for long-term forecasts.
+
+> Random walk may look trivial -> naive model (always predict that tomorrow will be the same as today). The square-root-of-time pattern in its confidence bands for long-term forecasts is of profound importance in finance (it is the basis of the theory of options pricing), and the random walk model often provides a good benchmark against which to judge the performance of more complicated models
+
+RWM -> special case of an ARIMA model -> ARIMA(0, 1, 0)
 
 # 3. Averaging and smoothing models
 
