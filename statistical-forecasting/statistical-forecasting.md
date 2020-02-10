@@ -41,6 +41,7 @@ Authors: Robert Nau
   - [Random walk model](#random-walk-model)
   - [Geometric random walk model](#geometric-random-walk-model)
     - [More general random walk forecasting models](#more-general-random-walk-forecasting-models)
+  - [Three types of forecasts: estimation, validation, and the future](#three-types-of-forecasts-estimation-validation-and-the-future)
 - [3. Averaging and smoothing models](#3-averaging-and-smoothing-models)
 - [4. Linear regression models](#4-linear-regression-models)
 - [5. ARIMA models for time series forecasting](#5-arima-models-for-time-series-forecasting)
@@ -270,6 +271,24 @@ In unlogged units, the 95% confidence limits for long-term forecasts are noticea
 - RW model 1: basic geometric random walk -> assumes series in different periods are statistically independent (uncorrelated) and also identically distributed
 - RW model 2: assumes the series in different periods are statistically independent but not identically distributed
 - RW model 3: assumes that returns in different periods are uncorrelated but not otherwise independent. The **ARCH** (autoregressive conditional heteroscedasticity) and **GARCH** (generalized ARCH) models assume that the local volatility follows an autoregressive process, which is characterized by sudden jumps in volatility with a slow reversion to an average volatility
+
+## Three types of forecasts: estimation, validation, and the future
+**Out-of-sample validation**: withhold some of the sample data from the model identification and estimation process, then use the model to make predictions for the hold-out data to see how accurate they are and to determine whether the statistics of their errors are similar to those that the model made within the sample of data that was fitted
+
+Overfitting (likely when):
+- model with a large number of parameters fitted to a small sample of data
+- model has been selected from a large set of potential models precisely by minimizing the MSE in the estimation period
+
+Backtests: one-step-ahead forecasts in the validation period (held out during parameter estimation)
+
+> If you test a great number of models and choose the model whose errors are smallest in the validation period, you may end up overfitting the data within the validation period as well as in the estimation period
+
+- **Holding data out for validation purposes** is probably the single most important diagnostic test of a model: it gives the best indication of the accuracy that can be expected when forecasting the future
+- When you're ready to forecast the future in real time, you should of course use all the available data for estimation, so that the most recent data is used
+
+Forecasts into the future are "true" forecasts that are made for time periods beyond the end of the available data
+
+The model with the tightest confidence intervals is not always the best model -> a bad model not always know it is a bad model
 
 # 3. Averaging and smoothing models
 
