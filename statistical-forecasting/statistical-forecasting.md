@@ -43,6 +43,7 @@ Authors: Robert Nau
     - [More general random walk forecasting models](#more-general-random-walk-forecasting-models)
   - [Three types of forecasts: estimation, validation, and the future](#three-types-of-forecasts-estimation-validation-and-the-future)
 - [3. Averaging and smoothing models](#3-averaging-and-smoothing-models)
+  - [Simple moving averages](#simple-moving-averages)
 - [4. Linear regression models](#4-linear-regression-models)
 - [5. ARIMA models for time series forecasting](#5-arima-models-for-time-series-forecasting)
 - [6. Choosing the right forecasting model](#6-choosing-the-right-forecasting-model)
@@ -291,6 +292,18 @@ Forecasts into the future are "true" forecasts that are made for time periods be
 The model with the tightest confidence intervals is not always the best model -> a bad model not always know it is a bad model
 
 # 3. Averaging and smoothing models
+## Simple moving averages
+- mean model: best predictor of tomorrow is the avg of everything that has happened until now
+- random walk model: best predictor of tomorrow is what happened today, ignoring previous history
+- moving average: take an average of what has happened in some window of the recent past
+
+**moving average model**: superior to the mean model in adapting to cyclical pattern and superior to the random walk model in not being too sensitive to random shocks from one period to the next
+
+Simple moving average (SMA):
+- Each of the past m observations gets a weight of `1/m` in the averaging formula, so as `m` gets larger, each individual observation in the recent past receives less weight. This implies that larger values of `m` will filter out more of the period-to-period noise and yield *smoother-looking* series of forecasts
+- average age of the data in the forecast is `(m+1)/2` -> amount by which the forecasts will tend to lag behind in trying to follow trends or respond to turning points
+
+> Value of `m` tradeoff: filtering out more noise vs. being too slow to respond to trends and turning points
 
 # 4. Linear regression models
 
