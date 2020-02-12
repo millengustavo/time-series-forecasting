@@ -44,6 +44,8 @@ Authors: Robert Nau
   - [Three types of forecasts: estimation, validation, and the future](#three-types-of-forecasts-estimation-validation-and-the-future)
 - [3. Averaging and smoothing models](#3-averaging-and-smoothing-models)
   - [Simple moving averages](#simple-moving-averages)
+  - [Comparing measures of forecast error between models](#comparing-measures-of-forecast-error-between-models)
+  - [Simple exponential smoothing](#simple-exponential-smoothing)
 - [4. Linear regression models](#4-linear-regression-models)
 - [5. ARIMA models for time series forecasting](#5-arima-models-for-time-series-forecasting)
 - [6. Choosing the right forecasting model](#6-choosing-the-right-forecasting-model)
@@ -304,6 +306,41 @@ Simple moving average (SMA):
 - average age of the data in the forecast is `(m+1)/2` -> amount by which the forecasts will tend to lag behind in trying to follow trends or respond to turning points
 
 > Value of `m` tradeoff: filtering out more noise vs. being too slow to respond to trends and turning points
+
+## Comparing measures of forecast error between models
+- **RMSE**: root mean squared error: (the most common standard of goodness-of-fit, penalizes big errors relatively more than small errors because it squares them first; it is approximately the standard deviation of the errors if the mean error is close to zero)
+- **MAE**: mean absolute error (the average of the absolute values of the errors, more tolerant of the occasional big error because errors are not squared)
+- **MAPE**: mean absolute percentage error (perhaps better to focus on if the data varies over a wide range due to compound growth or inflation or seasonality, in which case you may be more concerned about measuring errors in percentage terms)
+- **ME**: mean error (this indicates whether forecasts are biased high or low—should be close to 0)
+- **MPE**: mean percentage error (ditto in percentage terms)
+
+Best measure for size of error = RMSE
+
+Easier for non-specialists to understand = MAE and MAPE
+
+`SMA with a trend = SMD + drift` (add a constant to the SMA forecasting equation)
+
+`Tapered Moving Average`: put only half as much weight on the newest and oldest values -> more robust to outliers in the data
+
+## Simple exponential smoothing
+SMA problems:
+- putting equal weight on the last m observations and no weight on any previous observations is usually not the best way to average values that are arriving consecutively in time
+- would make more sense to gradually decrease the weights placed on the older values
+- its confidence intervals for long-horizon forecasts do not widen at all
+
+**Simple exponential smoothing (SES) aka Exponentially weighted moving average model**: addresses these shortcomings of SMA
+
+most used time series model in business applications:
+- good forecast under a wide range of conditions
+- computationally it is extremely simple
+
+> the SES model is an interpolation between the mean model and the random walk model with respect to the way it responds to new data. As such it might be expected to do better than either of them in situations where the random walk model over-responds and the mean model under-responds, and indeed it does
+
+Overall the SES model is superior to the SMA model in responding a bit more quickly to the newest data while treating older data more even-handedly, when the models otherwise yield the same average age
+
+> all models are based on assumptions about how the world works, and you need to understand what the assumptions are and (ideally) you should believe in the assumptions of your chosen model and be able to explain and defend them. 
+
+
 
 # 4. Linear regression models
 
