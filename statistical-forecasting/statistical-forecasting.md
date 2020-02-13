@@ -46,6 +46,7 @@ Authors: Robert Nau
   - [Simple moving averages](#simple-moving-averages)
   - [Comparing measures of forecast error between models](#comparing-measures-of-forecast-error-between-models)
   - [Simple exponential smoothing](#simple-exponential-smoothing)
+  - [Linear Exponential Smoothing (LES)](#linear-exponential-smoothing-les)
 - [4. Linear regression models](#4-linear-regression-models)
 - [5. ARIMA models for time series forecasting](#5-arima-models-for-time-series-forecasting)
 - [6. Choosing the right forecasting model](#6-choosing-the-right-forecasting-model)
@@ -340,7 +341,8 @@ Overall the SES model is superior to the SMA model in responding a bit more quic
 
 > all models are based on assumptions about how the world works, and you need to understand what the assumptions are and (ideally) you should believe in the assumptions of your chosen model and be able to explain and defend them. 
 
-
+## Linear Exponential Smoothing (LES)
+Generalization of the SES to obtain a model that computes local estimates of both level and trend -> same basic logic, but now you have two smoothing constants, one for the level and one for the trend
 
 # 4. Linear regression models
 
