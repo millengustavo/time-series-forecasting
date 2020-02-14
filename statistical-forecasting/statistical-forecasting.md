@@ -47,6 +47,7 @@ Authors: Robert Nau
   - [Comparing measures of forecast error between models](#comparing-measures-of-forecast-error-between-models)
   - [Simple exponential smoothing](#simple-exponential-smoothing)
   - [Linear Exponential Smoothing (LES)](#linear-exponential-smoothing-les)
+  - [Out-of-sample validation](#out-of-sample-validation)
 - [4. Linear regression models](#4-linear-regression-models)
 - [5. ARIMA models for time series forecasting](#5-arima-models-for-time-series-forecasting)
 - [6. Choosing the right forecasting model](#6-choosing-the-right-forecasting-model)
@@ -343,6 +344,19 @@ Overall the SES model is superior to the SMA model in responding a bit more quic
 
 ## Linear Exponential Smoothing (LES)
 Generalization of the SES to obtain a model that computes local estimates of both level and trend -> same basic logic, but now you have two smoothing constants, one for the level and one for the trend
+
+Any smoothing model will lag behind to some extent in responding to unforeseen changes in level or trend
+
+> many time series that arise in business and economics (as well as engineering and the natural sciences) which are inherently non-seasonal or which have been seasonally adjusted display a pattern of **random variations around a local mean value or a local trend line that changes slowly with time**. The first difference of such a series is negatively autocorrelated at lag 1: a positive change tends to be followed by a (smaller) negative one. For time series of this type, a smoothing or averaging model is the appropriate forecasting model. 
+
+## Out-of-sample validation
+Aka "backtesting": holding out some of the data while estimating parameters of alternative models, then freezing those parameter estimates and using them to make predictions for the hold-out data
+
+> You hope to find the statistics of the errors of the predictions for the hold-out data look very similar to those of the predictions for the sample data
+
+If the data exhibits exponential growth due to compounding or inflation, then it will display greater volatility in absolute terms toward the end of the series, even if the volatility is constant in percentage terms. In situations like this you may want to use a nonlinear transformation such as logging or deflating as part of your model
+
+> it is usually best to look at **MAPE’s** rather than RMSE’s when asking whether a given model performed about as well in the validation period as in the estimation period.
 
 # 4. Linear regression models
 
