@@ -48,6 +48,7 @@ Authors: Robert Nau
   - [Simple exponential smoothing](#simple-exponential-smoothing)
   - [Linear Exponential Smoothing (LES)](#linear-exponential-smoothing-les)
   - [Out-of-sample validation](#out-of-sample-validation)
+  - [Moving average and exponential smoothing models](#moving-average-and-exponential-smoothing-models)
 - [4. Linear regression models](#4-linear-regression-models)
 - [5. ARIMA models for time series forecasting](#5-arima-models-for-time-series-forecasting)
 - [6. Choosing the right forecasting model](#6-choosing-the-right-forecasting-model)
@@ -357,6 +358,11 @@ Aka "backtesting": holding out some of the data while estimating parameters of a
 If the data exhibits exponential growth due to compounding or inflation, then it will display greater volatility in absolute terms toward the end of the series, even if the volatility is constant in percentage terms. In situations like this you may want to use a nonlinear transformation such as logging or deflating as part of your model
 
 > it is usually best to look at **MAPE’s** rather than RMSE’s when asking whether a given model performed about as well in the validation period as in the estimation period.
+
+## Moving average and exponential smoothing models
+Moving beyond mean models, random walk models, and linear trend models, nonseasonal patterns and trends can be extrapolated using a moving-average or smoothing model.
+
+> Which type of trend-extrapolation is best: horizontal or linear? Empirical evidence suggests that, if the data have already been adjusted (if necessary) for inflation, then it may be imprudent to extrapolate short-term linear trends very far into the future. Trends evident today may slacken in the future due to varied causes such as product obsolescence, increased competition, and cyclical downturns or upturns in an industry. For this reason, simple exponential smoothing often performs better out-of-sample than might otherwise be expected, despite its "naive" horizontal trend extrapolation.  Damped trend modifications of the linear exponential smoothing model are also often used in practice to introduce a note of conservatism into its trend projections.
 
 # 4. Linear regression models
 
