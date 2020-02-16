@@ -49,6 +49,13 @@ Authors: Robert Nau
   - [Linear Exponential Smoothing (LES)](#linear-exponential-smoothing-les)
   - [Out-of-sample validation](#out-of-sample-validation)
   - [Moving average and exponential smoothing models](#moving-average-and-exponential-smoothing-models)
+  - [Forecasting with adjustments for inflation and seasonality](#forecasting-with-adjustments-for-inflation-and-seasonality)
+    - [Modeling the effect of inflation](#modeling-the-effect-of-inflation)
+    - [Seasonality](#seasonality)
+    - [Multiplicative seasonality](#multiplicative-seasonality)
+    - [Additive seasonality](#additive-seasonality)
+    - [Seasonal index](#seasonal-index)
+    - [Winters' Seasonal Smoothing](#winters-seasonal-smoothing)
 - [4. Linear regression models](#4-linear-regression-models)
 - [5. ARIMA models for time series forecasting](#5-arima-models-for-time-series-forecasting)
 - [6. Choosing the right forecasting model](#6-choosing-the-right-forecasting-model)
@@ -363,6 +370,68 @@ If the data exhibits exponential growth due to compounding or inflation, then it
 Moving beyond mean models, random walk models, and linear trend models, nonseasonal patterns and trends can be extrapolated using a moving-average or smoothing model.
 
 > Which type of trend-extrapolation is best: horizontal or linear? Empirical evidence suggests that, if the data have already been adjusted (if necessary) for inflation, then it may be imprudent to extrapolate short-term linear trends very far into the future. Trends evident today may slacken in the future due to varied causes such as product obsolescence, increased competition, and cyclical downturns or upturns in an industry. For this reason, simple exponential smoothing often performs better out-of-sample than might otherwise be expected, despite its "naive" horizontal trend extrapolation.  Damped trend modifications of the linear exponential smoothing model are also often used in practice to introduce a note of conservatism into its trend projections.
+
+## Forecasting with adjustments for inflation and seasonality
+- Deflation with prices indices
+- Seasonal decompositon
+- Time series forecasting models for seasonal data
+  - Averaging and smoothing combined with seasonal adjustment
+  - Winters seasonal exponential smoothing model
+
+### Modeling the effect of inflation
+**Why?**
+- to measure real growth and estimate its dependence on other real factors
+- to remove much of the trend and stabilize variance before fitting the model
+
+**How?**
+- to "deflate" a variable, you divide it by an appropriate price index variable
+- e.g.: general price index, product-specific index
+- to "re-inflate" forecasts of a deflated series, you multiply the forecasts and confidence limits by a forecast of the price index
+
+**Log vs. deflate**
+- Deflation should be used when you are interested in knowing the forecast in “real” terms and/or if the inflation rate is expected to change
+- Logging is sufficient if you just want a forecast in “nominal” terms and inflation is expected to remain constant—inflation just gets lumped with other sources of compound growth in the model.
+- Logging also ensures that forecasts and confidence limits have positive values, even in the presence of downward trends and/or high volatility.
+- If inflation has been minimal and/or there is little overall trend or change in volatility, neither may be necessary
+
+### Seasonality
+- repeating, preiodic pattern in the data that is keyed to the calendar of the clock
+- != than "cyclality", which do not have a predictable periodicity
+
+> Seasonal patterns are complex, because the calendar is not rational: months and years don't have whole numbers of weeks, a given month does not always have the same number of trading days/weekends, Christmans day can fall on any day of the week, some major holidays are "moveable feasts" that do not occur on the same calendar dates each year
+
+- Quarterly data is easiest to handle: 4 quarters in a year, 3 months in a quarter, trading day adjustments have only minor effects.
+- Monthly data is more complicated: 12 months in a year, but not 4 weeks in a month; trading day adjustments may be important.
+- Weekly data requires special handling because a year is not exactly 52 weeks.
+
+### Multiplicative seasonality
+Most natural seasonal patterns are multiplicative
+- Seasonal variations are roughly constant in percentage terms
+- Seasonal swings get larger or smaller in absolute magnitude as the average level of the series rises or falls due to long-term trends and/or business cycle effects
+
+### Additive seasonality
+Additive seasonal pattern has constant-amplitude seasonal swings in the presence of trends and cycles.
+- A log transformation converts a multiplicative pattern to an additive one, so if your model includes a log transformation, use additive rather than multiplicative seasonal adjustment.
+- If the historical data sample has little trend and seasonal variations are not large in relative terms, additive and multiplicative adjustment yield very similar results
+
+
+### Seasonal index
+- Represents the expected percentage of "normal" in a given month or quarter
+- When the seasonal indices are assumed to be stable over time, they can be estimated by the "ratio to moving average" (RMA) method
+
+### Winters' Seasonal Smoothing
+The logic of Holt’s LES model can be extended to recursively estimate time-varying seasonal indices as well as level and trend.
+
+**Issues**:
+- Estimation of Winters' model is tricky
+- There are three separate smoothing constants to be jointly estimated by nonlinear least squares.
+- Initialization is also tricky, especially for the seasonal indices.
+- Confidence intervals sometimes come out extremely wide because the model “lacks confidence in itself.” 
+
+**In practice**:
+- The Winters model is popular in “automatic forecasting” software, because it has a little of everything (level, trend, seasonality).
+- Often it works very well, but difficulties in initialization & estimation can lead to strange results in some cases.
+- It responds to recent changes in the seasonal pattern as well as the trend, but with some danger of unstable long-term trend projections.
 
 # 4. Linear regression models
 
