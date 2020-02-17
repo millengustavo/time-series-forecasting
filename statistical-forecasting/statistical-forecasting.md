@@ -57,6 +57,8 @@ Authors: Robert Nau
     - [Seasonal index](#seasonal-index)
     - [Winters' Seasonal Smoothing](#winters-seasonal-smoothing)
 - [4. Linear regression models](#4-linear-regression-models)
+  - [Introduction to linear regression](#introduction-to-linear-regression)
+  - [Correlation and regression-to-mediocrity](#correlation-and-regression-to-mediocrity)
 - [5. ARIMA models for time series forecasting](#5-arima-models-for-time-series-forecasting)
 - [6. Choosing the right forecasting model](#6-choosing-the-right-forecasting-model)
 
@@ -434,6 +436,27 @@ The logic of Holt’s LES model can be extended to recursively estimate time-var
 - It responds to recent changes in the seasonal pattern as well as the trend, but with some danger of unstable long-term trend projections.
 
 # 4. Linear regression models
+## Introduction to linear regression
+Regression analysis: art and science of fitting straight lines to patterns of data
+
+Assumptions:
+1. The expected value of Y is a linear function of the X variables
+2. The unexplained variations of Y are independent random variables (in particular, not “autocorrelated” if the variables are time series)
+3. The all have the same variance ("homoscedasticity")
+4. They are normally distributed
+
+> No model is perfect - these assumptions will never be exactly satisfied by real-world messy data - but you hope that they are not badly wrong. The art of regression modeling is to (most importantly!) collect data that is relevant and informative with respect to your decision or inference problem, and then define your variables and construct your model in such a way that the assumptions listed above are plausible, at least as a first-order approximation to what is really happening
+
+## Correlation and regression-to-mediocrity
+**Regression-to-mediocrity aka regression to the mean**: Purely statistical phenomenon that can be viewed as a form of selection bias. Every quantitative measurement is a combination of signal and noise. When a value above the mean is observed, it is probable that the value of the signal was above average and the value of the noise was above average. Now suppose there is some other quantity (say, some measurable trait of the offspring—not necessarily the same one) whose value depends only on the signal, not the noise, in the first quantity. Then a measurement of the second quantity should also be expected to be above the mean, but less so in relative terms, because only the above-average signal is passed on; the above-average noise is not. In fact, it is the independent noise in the second quantity that prevents variations from ever dying out over generations.
+
+The coefficient of correlation between X and Y is the average product of their standardized values
+
+It is a number that lies somewhere between -1 and +1, where -1 indicates a perfect negative linear relationship, +1 indicates a perfect positive linear relationship, and zero indicates no linear relationship. 
+
+> A correlation of zero between X and Y does not necessarily mean that there is no relationship, just that there is no linear relationship within the historical sample of data that is being analyzed. e.g., y = xˆ2
+
+When we speak of “regressing” one variable on a group of others, we mean the fitting of a linear equation that minimizes the sum of squared errors in predicting that variable from the others. 
 
 # 5. ARIMA models for time series forecasting
 
