@@ -59,6 +59,7 @@ Authors: Robert Nau
 - [4. Linear regression models](#4-linear-regression-models)
   - [Introduction to linear regression](#introduction-to-linear-regression)
   - [Correlation and regression-to-mediocrity](#correlation-and-regression-to-mediocrity)
+  - [Mathematics of a regression model](#mathematics-of-a-regression-model)
 - [5. ARIMA models for time series forecasting](#5-arima-models-for-time-series-forecasting)
 - [6. Choosing the right forecasting model](#6-choosing-the-right-forecasting-model)
 
@@ -457,6 +458,18 @@ It is a number that lies somewhere between -1 and +1, where -1 indicates a perfe
 > A correlation of zero between X and Y does not necessarily mean that there is no relationship, just that there is no linear relationship within the historical sample of data that is being analyzed. e.g., y = xˆ2
 
 When we speak of “regressing” one variable on a group of others, we mean the fitting of a linear equation that minimizes the sum of squared errors in predicting that variable from the others. 
+
+## Mathematics of a regression model
+1. The coefficients and error measures for a regression model are entirely determined by the following summary statistics: means, standard deviations, and correlations of the variables, and the sample size
+2. The correlation between Y and X is equal to the average product of their standardized values
+3. The slope coefficient in a simple regression of Y on X is the correlation between Y and X multiplied by the ratio of their standard deviations
+4. In a simple regression model, the percentage of variance “explained” by the model, which is called R-squared, is the square of the correlation between Y and X
+5. The sample standard deviation of the errors is a downward-biased estimate of the size of the true unexplained deviations in Y because it does not adjust for the additional “degree of freedom” used up by estimating the slope coefficient
+6. Adjusted R-squared, which is obtained by adjusting R-squared for the degrees if freedom for error in exactly the same way, is an unbiased estimate of the amount of variance explained
+7. For models fitted to the same sample of the same dependent variable, adjusted R-squared always goes up when the standard error of the regression goes down. A model does not always improve when more variables are added: adjusted R-squared can go down (even go negative) if irrelevant variables are added
+8. The standard error of a coefficient estimate is the estimated standard deviation of the error in measuring it. And the estimated height of the regression line for a given value of X has its own standard error, which is called the standard error of the mean at X. All of these standard errors are proportional to the standard error of the regression divided by the square root of the sample size
+9. The standard error of the forecast for Y for a given value of X is the square root of the sum of squares of the standard error of the regression and the standard error of the mean at X
+10. Two-sided confidence limits for coefficient estimates, means, and forecasts are all equal to their point estimates plus-or-minus the appropriate critical t-value times their respective standard errors.
 
 # 5. ARIMA models for time series forecasting
 
