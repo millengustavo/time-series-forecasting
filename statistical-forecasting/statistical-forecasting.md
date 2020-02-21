@@ -60,6 +60,13 @@ Authors: Robert Nau
   - [Introduction to linear regression](#introduction-to-linear-regression)
   - [Correlation and regression-to-mediocrity](#correlation-and-regression-to-mediocrity)
   - [Mathematics of a regression model](#mathematics-of-a-regression-model)
+  - [What to look for in regression model output](#what-to-look-for-in-regression-model-output)
+    - [Standard error of the regression (root-mean-squared error adjusted for degrees of freedom)](#standard-error-of-the-regression-root-mean-squared-error-adjusted-for-degrees-of-freedom)
+    - [Adjusted R-squared](#adjusted-r-squared)
+    - [Significance of the estimated coefficients](#significance-of-the-estimated-coefficients)
+    - [Values of the estimated coefficients](#values-of-the-estimated-coefficients)
+    - [Plots of forecasts and residuals](#plots-of-forecasts-and-residuals)
+    - [Out-of-sample validation](#out-of-sample-validation-1)
 - [5. ARIMA models for time series forecasting](#5-arima-models-for-time-series-forecasting)
 - [6. Choosing the right forecasting model](#6-choosing-the-right-forecasting-model)
 
@@ -470,6 +477,30 @@ When we speak of “regressing” one variable on a group of others, we mean the
 8. The standard error of a coefficient estimate is the estimated standard deviation of the error in measuring it. And the estimated height of the regression line for a given value of X has its own standard error, which is called the standard error of the mean at X. All of these standard errors are proportional to the standard error of the regression divided by the square root of the sample size
 9. The standard error of the forecast for Y for a given value of X is the square root of the sum of squares of the standard error of the regression and the standard error of the mean at X
 10. Two-sided confidence limits for coefficient estimates, means, and forecasts are all equal to their point estimates plus-or-minus the appropriate critical t-value times their respective standard errors.
+
+## What to look for in regression model output
+
+### Standard error of the regression (root-mean-squared error adjusted for degrees of freedom)
+It is a lower bound on the standard error of any forecast generated from the model
+
+In time series forecasting, also common to look the mean absolute error (MAE) and, for positive data, the mean absolute percentage error (MAPE)
+
+Mean absolute scaled error -> measures improvement in mean absolute error relative to a random-walk-without-drift model
+
+### Adjusted R-squared
+R-squared (the fraction by which the variance of the errors is less than the variance of the dependent variable) adjusted for the number of coefficients in the model relative to the sample size in order to correct it for bias. 
+
+Adjusted R-squared is the fraction by which the square of the standard error of the regression is less than the variance of the dependent variable
+
+Unitless statistic, but there is no absolute standard for what is a "good" value
+
+### Significance of the estimated coefficients
+
+### Values of the estimated coefficients
+
+### Plots of forecasts and residuals
+
+### Out-of-sample validation
 
 # 5. ARIMA models for time series forecasting
 
