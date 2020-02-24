@@ -67,6 +67,7 @@ Authors: Robert Nau
     - [Values of the estimated coefficients](#values-of-the-estimated-coefficients)
     - [Plots of forecasts and residuals](#plots-of-forecasts-and-residuals)
     - [Out-of-sample validation](#out-of-sample-validation-1)
+  - [What's the bottom line? How to compare models](#whats-the-bottom-line-how-to-compare-models)
 - [5. ARIMA models for time series forecasting](#5-arima-models-for-time-series-forecasting)
 - [6. Choosing the right forecasting model](#6-choosing-the-right-forecasting-model)
 
@@ -495,12 +496,21 @@ Adjusted R-squared is the fraction by which the square of the standard error of 
 Unitless statistic, but there is no absolute standard for what is a "good" value
 
 ### Significance of the estimated coefficients
+Are the t-statistics greater than 2 in magnitude, corresponding to p-values less than 0.05?  If they are not, you should probably try to refit the model with the least significant variable excluded, which is the "backward stepwise" approach to model refinement.
 
 ### Values of the estimated coefficients
+In general you are interested not only in the statistical significance of an independent variable, you are also interested in its practical significance. In theory, the coefficient of a given independent variable is its proportional effect on the average value of the dependent variable, others things being equal -> "bang for the buck". 
 
 ### Plots of forecasts and residuals
+DO NOT FAIL TO LOOK AT PLOTS OF THE FORECASTS AND ERRORS. Do the forecasts "track" the data in a satisfactory way, apart from the inevitable regression-to-the mean? (In the case of time series data, you are especially concerned with how the model fits the data at the "business end", i.e., the most recent values.) Do the residuals appear random, or do you see some systematic patterns in their signs or magnitudes?  Are they free from trends, autocorrelation, and heteroscedasticity? Are they normally distributed? There are a variety of statistical tests for these sorts of problems, but the best way to determine whether they are present and whether they are serious is to look at the pictures.
 
 ### Out-of-sample validation
+A good model should have small error measures in both the estimation and validation periods, compared to other models, and its validation period statistics should be similar to its own estimation period statistics. Regression models with many independent variables are especially susceptible to overfitting the data in the estimation period, so watch out for models that have suspiciously low error measures in the estimation period and disappointingly high error measures in the validation period.
+
+> Be aware that if you test a large number of models and rigorously rank them on the basis of their validation period statistics, you may end up with just as much "data snooping bias" as if you had only looked at estimation-period statistics--i.e., you may end up picking a model that is more lucky than good! **The best defense against this is to choose the simplest and most intuitively plausible model that gives comparatively good results.**
+
+## What's the bottom line? How to compare models
+
 
 # 5. ARIMA models for time series forecasting
 
