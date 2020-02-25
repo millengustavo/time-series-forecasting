@@ -69,6 +69,8 @@ Authors: Robert Nau
     - [Out-of-sample validation](#out-of-sample-validation-1)
   - [What's the bottom line? How to compare models](#whats-the-bottom-line-how-to-compare-models)
 - [5. ARIMA models for time series forecasting](#5-arima-models-for-time-series-forecasting)
+  - [What ARIMA stands for](#what-arima-stands-for)
+  - [ARIMA models put it all together](#arima-models-put-it-all-together)
 - [6. Choosing the right forecasting model](#6-choosing-the-right-forecasting-model)
 
 > "I have seen the future and it is very much like the present, only longer." 
@@ -510,8 +512,30 @@ A good model should have small error measures in both the estimation and validat
 > Be aware that if you test a large number of models and rigorously rank them on the basis of their validation period statistics, you may end up with just as much "data snooping bias" as if you had only looked at estimation-period statistics--i.e., you may end up picking a model that is more lucky than good! **The best defense against this is to choose the simplest and most intuitively plausible model that gives comparatively good results.**
 
 ## What's the bottom line? How to compare models
+After fitting a number of different regression or time series forecasting models to a given data set, you have many criteria by which they can be compared:
 
+- Error measures in the estimation period: root mean squared error, mean absolute error, mean absolute percentage error, mean absolute scaled error, mean error, mean percentage error
+- Error measures in the validation period (if you have done out-of-sample testing): Ditto
+- Residual diagnostics and goodness-of-fit tests: plots of actual and predicted values; plots of residuals versus time, versus predicted values, and versus other variables; residual autocorrelation plots, cross-correlation plots, and tests for normally distributed errors; measures of extreme or influential observations; tests for excessive runs, changes in mean, or changes in variance (lots of things that can be "OK" or "not OK")
+- Qualitative considerations: intuitive reasonableness of the model, simplicity of the model, and above all, usefulness for decision making!
+
+The bottom line is that you should put the most weight on the error measures in the estimation period--most often the RMSE, but sometimes MAE or MAPE--when comparing among models. 
+
+The MASE statistic provides a very useful reality check for a model fitted to time series data: is it any better than a naive model? 
+
+You may also want to look at Cp, AIC or BIC, which more heavily penalize model complexity. But you should keep an eye on the residual diagnostic tests, cross-validation tests (if available), and qualitative considerations such as the intuitive reasonableness and simplicity of your model.
+
+**K.I.S.S. (keep it simple...)**: If two models are generally similar in terms of their error statistics and other diagnostics, you should prefer the one that is simpler and/or easier to understand.
 
 # 5. ARIMA models for time series forecasting
+
+**A**uto-**R**egressive **I**ntegrated **M**oving **A**verage
+
+## What ARIMA stands for
+- Series which needs to be differenced to be made stationary = an "integrated" (**I**) series
+- Lags of the stationarized series are called "auto-regressive" (**AR**) terms
+- Lags of the forecast errors are called "moving average" (**MA**) terms
+
+## ARIMA models put it all together
 
 # 6. Choosing the right forecasting model
