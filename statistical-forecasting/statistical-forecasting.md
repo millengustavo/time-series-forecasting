@@ -71,6 +71,16 @@ Authors: Robert Nau
 - [5. ARIMA models for time series forecasting](#5-arima-models-for-time-series-forecasting)
   - [What ARIMA stands for](#what-arima-stands-for)
   - [ARIMA models put it all together](#arima-models-put-it-all-together)
+  - [Construction of an ARIMA model](#construction-of-an-arima-model)
+  - [ARIMA terminology](#arima-terminology)
+  - [Do you need both AR and MA terms?](#do-you-need-both-ar-and-ma-terms)
+  - [Interpretation of AR terms](#interpretation-of-ar-terms)
+  - [Interpretation of MA terms](#interpretation-of-ma-terms)
+  - [Tools for identifying ARIMA models: ACF and PACF plots](#tools-for-identifying-arima-models-acf-and-pacf-plots)
+  - [AR and MA "signatures"](#ar-and-ma-%22signatures%22)
+  - [Model-fitting steps](#model-fitting-steps)
+  - [Technical issues](#technical-issues)
+  - [Seasonal ARIMA models](#seasonal-arima-models)
 - [6. Choosing the right forecasting model](#6-choosing-the-right-forecasting-model)
 
 > "I have seen the future and it is very much like the present, only longer." 
@@ -537,5 +547,59 @@ You may also want to look at Cp, AIC or BIC, which more heavily penalize model c
 - Lags of the forecast errors are called "moving average" (**MA**) terms
 
 ## ARIMA models put it all together
+- Generalized random walk models fine-tuned to eliminate all residual autocorrelation
+- Generalized exponential smoothing models that can incorporate long-term trends and seasonality
+- Stationarized regression models that use lags of the dependent variables and/or lags of the forecast errors as regressors
+- The most general class of forecasting models for time series that can be stationarized* by transformations such as differencing, logging, and or deflating
+
+## Construction of an ARIMA model
+1. Stationarize the series, if necessary, by differencing (& perhaps also logging, deflating, etc.)
+2. Study the pattern of autocorrelations and partial autocorrelations to determine if lags of the stationarized series and/or lags of the forecast errors should be included in the forecasting equation
+3. Fit the model that is suggested and check its residual diagnostics, particularly the residual ACF and PACF plots, to see if all coefficients are significant and all of the pattern has been explained.
+4. Patterns that remain in the ACF and PACF may suggest the need for additional AR or MA terms
+
+## ARIMA terminology
+ARIMA(p,d,q) -> non-seasonal ARIMA:
+
+p = number of autoregressive terms
+
+q = number of non-seasonal differences
+
+d = number of moving-average terms
+
+## Do you need both AR and MA terms?
+- in general, you don't
+- If the stationarized series has positive autocorrelation at lag 1, AR terms often work best. If it has negative autocorrelation at lag 1, MA terms often work best.
+- An MA(1) term often works well to fine-tune the effect of a nonseasonal difference, while an AR(1) term often works well to compensate for the lack of a nonseasonal difference, so the choice between them may depend on whether a difference has been used.
+
+## Interpretation of AR terms
+Autoregressive (AR) behavior: apparently feels a "restoring force" that tends to pull it back toward its mean
+
+## Interpretation of MA terms
+Moving average (MA) behavior: apparently undergoes random "shocks" whose effects are felt in two or more consecutive periods
+
+## Tools for identifying ARIMA models: ACF and PACF plots
+- Autocorrelation function (ACF) plot: shows the correlation of the series with itself at different lags
+- Partial autocorrelation function (PACF) plot: shows the amount of autocorrelation at lag `k` that is not explained by lower-order autocorrelations
+
+## AR and MA "signatures"
+- ACF that dies out gradually and PACF that cuts off sharply after a few lags -> **AR signature**
+  - AR series is usually *positive autocorrelated at lag 1*
+- ACF that cuts off sharply after a few lags and PACF that dies out more gradually -> **MA signature**
+  - MA series is usually *negatively autocorrelated at lag 1*
+
+> Whether a series displays AR or MA behavior often depends on the extent to which it has been differenced. "Underdifferenced" series -> AR signature (positive autocorrelation). After one or more orders of differencing, the autocorrelation will become more negative and an MA signature will emerge
+
+## Model-fitting steps
+1. Determine the order of differencing
+2. Determine the numbers of AR & MA terms
+3. Fit the model—check to see if residuals are “white noise,” highest-order coefficients are significant (w/ no “unit “roots”), and forecasts look reasonable. If not, return to step 1 or 2.
+
+## Technical issues
+- **Backforecasting**: Estimation algorithm begins by forecasting backward into the past to get start-up values
+- **Unit roots**: Look at sum of AR coefficients and sum of MA coefficients—if they are too close to 1 you may want to consider higher or lower of differencing
+- **Overdifferencing**: A series that has been differenced one too many times will show very strong negative autocorrelation and a strong MA signature, probably with a unit root in MA coefficients
+
+## Seasonal ARIMA models
 
 # 6. Choosing the right forecasting model
