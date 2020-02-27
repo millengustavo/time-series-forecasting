@@ -81,6 +81,10 @@ Authors: Robert Nau
   - [Model-fitting steps](#model-fitting-steps)
   - [Technical issues](#technical-issues)
   - [Seasonal ARIMA models](#seasonal-arima-models)
+    - [Terminology](#terminology)
+    - [Model fitting steps](#model-fitting-steps-1)
+  - [Bottom-line suggestion](#bottom-line-suggestion)
+  - [Take-aways](#take-aways)
 - [6. Choosing the right forecasting model](#6-choosing-the-right-forecasting-model)
 
 > "I have seen the future and it is very much like the present, only longer." 
@@ -601,5 +605,37 @@ Moving average (MA) behavior: apparently undergoes random "shocks" whose effects
 - **Overdifferencing**: A series that has been differenced one too many times will show very strong negative autocorrelation and a strong MA signature, probably with a unit root in MA coefficients
 
 ## Seasonal ARIMA models
+Rely on seasonal lags and differences to fit the seasonal pattern. Generalizes the regression approach.
+
+### Terminology
+Seasonal part of an ARIMA model is summarized by three additional numbers:
+- P = # of seasonal autoregressive terms
+- D = # of seasonal differences
+- Q = # of seasonal moving average terms
+
+"ARIMA(p,d,q)x(P,D,Q)" model
+
+> P, D and Q should never be larger than 1
+
+### Model fitting steps
+- Start by trying various combinations of one seasonal difference and/or one non-seasonal difference to stationarize the series and remove gross features of seasonal pattern.
+- If the seasonal pattern is strong and stable, you MUST use a seasonal difference (otherwise it will “die out” in long-term forecasts)
+- After differencing, inspect the ACF and PACF at
+multiples of the seasonal period (s):
+  - Positive spikes in ACF at lag s, 2s, 3s…, single positive spike in PACF at lag s -> SAR=1
+  - Negative spike in ACF at lag s, negative spikes in PACF at lags s, 2s, 3s,… -> SMA=1
+  - SMA=1 often works well in conjunction with a seasonal difference.
+
+> Same principles as for non-seasonal models, except focused on what happens at multiples of lag `s` in ACF and PACF.
+
+## Bottom-line suggestion
+Strong seasonal pattern, try:
+- ARIMA(0,1,q)x(0,1,1) model (q=1 or 2)
+- ARIMA(p,0,0)x(0,1,1)+c model (p=1, 2 or 3)
+- If there is a significant trend and/or the seasonal pattern is multiplicative, you should also try a natural log transformation.
+
+## Take-aways
+- **Advantages**: solid underlying theory, stable estimation of time-varying trends and seasonal patterns, relatively few parameters.
+- **Drawbacks**: no explicit seasonal indices, hard to interpret coefficients or explain “how the model works”, danger of overfitting or mis-identification if not used with care.
 
 # 6. Choosing the right forecasting model
