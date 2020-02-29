@@ -90,6 +90,15 @@ Authors: Robert Nau
     - [Identifying the numbers of AR and MA terms:](#identifying-the-numbers-of-ar-and-ma-terms)
     - [Identifying the seasonal part of the model:](#identifying-the-seasonal-part-of-the-model)
 - [6. Choosing the right forecasting model](#6-choosing-the-right-forecasting-model)
+  - [Steps in choosing a forecasting model](#steps-in-choosing-a-forecasting-model)
+    - [Deflation?](#deflation)
+    - [Logarithm transformation?](#logarithm-transformation)
+    - [Seasonal adjustment?](#seasonal-adjustment-1)
+    - [Independent variables?](#independent-variables)
+    - [Smoothing, averaging, or random walk?](#smoothing-averaging-or-random-walk)
+    - [Winters Seasonal Exponential Smoothing?](#winters-seasonal-exponential-smoothing)
+    - [ARIMA?](#arima)
+      - [Steps](#steps)
 
 > "I have seen the future and it is very much like the present, only longer." 
 > -- Kehlog Albran, *The Profit*
@@ -670,3 +679,56 @@ Strong seasonal pattern, try:
 > **A caveat about long-term forecasting in general**: linear time series models such as ARIMA and exponential smoothing models predict the more distant future by making a series of one-period-ahead forecasts and plugging them in for unknown future values as they look farther ahead. However, the models are identified and optimized based on their one-period-ahead forecasting performance, and rigid extrapolation of them may not be the best way to forecast many periods ahead (say, more than one year when working with monthly or quarterly business data), particularly when the modeling assumptions are at best only approximately satisfied (which is nearly always the case). If one of your objectives is to generate long-term forecasts, it would be good to also draw on other sources of information during the model selection process and/or to optimize the parameter estimates for multi-period forecasting if your software allows it and/or use an auxiliary model (possibly one that incorporates expert opinion) for long-term forecasting.
 
 # 6. Choosing the right forecasting model
+## Steps in choosing a forecasting model
+### Deflation?
+If the series show inflationary growth. Help to account for the growth pattern and reduce heteroscedasticity in the residuals.
+### Logarithm transformation?
+If the series shows compound growth and/or a multiplicative seasonal pattern, a logarithm transformation may be helpful in addition to or lieu of deflation. Logging the data will not flatten an inflationary growth pattern, but it will straighten it out it so that it can be fitted by a linear model (e.g., a random walk or ARIMA model with constant growth, or a linear exponential smoothing model). 
+
+Convert multiplicative seasonal patterns to additive patterns, so that if you perform seasonal adjustment after logging, you should use the additive type.
+
+Another important use for the log transformation is linearizing relationships among variables in a regression model
+
+### Seasonal adjustment?
+If the series has a strong seasonal pattern which is believed to be constant from year to year, seasonal adjustment may be an appropriate way to estimate and extrapolate the pattern. 
+
+The advantage of seasonal adjustment is that it models the seasonal pattern explicitly, giving you the option of studying the seasonal indices and the seasonally adjusted data. 
+
+The disadvantage is that it requires the estimation of a large number of additional parameters (particularly for monthly data), and it provides no theoretical rationale for the calculation of "correct" confidence intervals
+
+### Independent variables?
+If there are other time series which you believe to have explanatory power with respect to your series of interest (e.g., leading economic indicators or policy variables such as price, advertising, promotions, etc.)
+
+### Smoothing, averaging, or random walk?
+If you have chosen to seasonally adjust the data--or if the data are not seasonal to begin with--then you may wish to use an **averaging or smoothing model** to fit the nonseasonal pattern which remains in the data at this point
+
+If smoothing or averaging does not seem to be helpful--i.e., if the best predictor of the next value of the time series is simply its previous value--then a **random walk model** is indicated.
+
+**Brown's linear exponential smoothing** can be used to fit a series with slowly time-varying linear trends, but be cautious about extrapolating such trends very far into the future.
+
+**Holt's linear smoothing** also estimates time-varying trends, but uses separate parameters for smoothing the level and trend, which usually provides a better fit to the data than Brown’s model.
+
+### Winters Seasonal Exponential Smoothing?
+Extension of exponential smoothing that simultaneously estimates time-varying level, trend, and seasonal factors using recursive equations. (Thus, if you use this model, you would not first seasonally adjust the data.)
+
+The Winters seasonal factors can be either multiplicative or additive: normally you should choose the multiplicative option unless you have logged the data. Although the Winters model is clever and reasonably intuitive, it can be tricky to apply in practice: it has three smoothing parameters--alpha, beta, and gamma--for separately smoothing the level, trend, and seasonal factors, which must be estimated simultaneously.
+
+### ARIMA?
+If you do not choose seasonal adjustment (or if the data are non-seasonal), you may wish to use the ARIMA model framework. 
+
+ARIMA models are a very general class of models that includes random walk, random trend, exponential smoothing, and autoregressive models as special cases. 
+
+The conventional wisdom is that a series is a good candidate for an ARIMA model if: 
+- (i) it can be stationarized by a combination of differencing and other mathematical transformations such as logging, and 
+- (ii) you have a substantial amount of data to work with: at least 4 full seasons in the case of seasonal data. (If the series cannot be adequately stationarized by differencing--e.g., if it is very irregular or seems to be qualitatively changing its behavior over time--or if you have fewer than 4 seasons of data, then you might be better off with a model that uses seasonal adjustment and some kind of simple averaging or smoothing.)
+
+#### Steps
+1. Determine the appropriate order of differencing needed to stationarize the series and remove the gross features of seasonality
+2. Determine whether to include a constant term in the model: usually you do include a constant term if the total order of differencing is 1 or less, otherwise you don't
+3. Choose the numbers of autoregressive and moving average parameters (p, d, q, P, D, Q) that are needed to eliminate any autocorrelation that remains in the residuals of the naive model (i.e., any correlation that remains after mere differencing). 
+
+> It is usually better to proceed in a forward stepwise rather than backward stepwise fashion when tweaking the model specifications: start with simpler models and only add more terms if there is a clear need.
+
+
+
+
