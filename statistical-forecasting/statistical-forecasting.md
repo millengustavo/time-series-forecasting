@@ -99,6 +99,7 @@ Authors: Robert Nau
     - [Winters Seasonal Exponential Smoothing?](#winters-seasonal-exponential-smoothing)
     - [ARIMA?](#arima)
       - [Steps](#steps)
+  - [Forecasting Flow Chart](#forecasting-flow-chart)
 
 > "I have seen the future and it is very much like the present, only longer." 
 > -- Kehlog Albran, *The Profit*
@@ -729,6 +730,9 @@ The conventional wisdom is that a series is a good candidate for an ARIMA model 
 
 > It is usually better to proceed in a forward stepwise rather than backward stepwise fashion when tweaking the model specifications: start with simpler models and only add more terms if there is a clear need.
 
+## Forecasting Flow Chart
+Source: [https://people.duke.edu/~rnau/411flow.gif](https://people.duke.edu/~rnau/411flow.gif)
 
+<img src="https://people.duke.edu/~rnau/411flow.gif" title="flow_chart" width="800" />
 
 
