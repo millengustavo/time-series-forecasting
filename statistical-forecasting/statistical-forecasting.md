@@ -100,6 +100,7 @@ Authors: Robert Nau
     - [ARIMA?](#arima)
       - [Steps](#steps)
   - [Forecasting Flow Chart](#forecasting-flow-chart)
+  - [Automatic Forecasting Software](#automatic-forecasting-software)
   - [How to avoid trouble: principles of good data analysis](#how-to-avoid-trouble-principles-of-good-data-analysis)
 
 > "I have seen the future and it is very much like the present, only longer." 
@@ -736,6 +737,9 @@ Source: [https://people.duke.edu/~rnau/411flow.gif](https://people.duke.edu/~rna
 
 <img src="https://people.duke.edu/~rnau/411flow.gif" title="flow_chart" width="800" />
 
+## Automatic Forecasting Software
+> **WARNING**: Properly used, and guided by experience with "manual" model-fitting, the best of such software can put more data-analysis power at your fingertips and speed up routine forecasting applications. Carelessly used, it merely allows you to foul things up in a bigger way, obtaining results without insight while getting a false sense of security that "the computer knows best." **Automatic forecasting software is a complement to, not a substitute for, your own forecasting expertise.**
+
 ## How to avoid trouble: principles of good data analysis
 Source: [https://people.duke.edu/~rnau/notroubl.htm](https://people.duke.edu/~rnau/notroubl.htm)
 
@@ -748,7 +752,7 @@ Source: [https://people.duke.edu/~rnau/notroubl.htm](https://people.duke.edu/~rn
 - Keep in mind that not all relationships are linear and additive, not all randomness is normally distributed, and regression models are not magic boxes that can predict anything from anything.  Be aware that it may be necessary to transform some of your variables (through deflating, logging, differencing, etc.) in order to match their patterns up with each other in the way that linear models require.
 - When comparing models, focus on the right objectives, which are usually making the smallest possible errors in the future and deriving inferences that are genuinely useful for decision making.  A good fit to past data does not always guarantee an equally good prediction of what will happen next, and statistical significance is not always the same as practical significance.
 - Other things being equal, KEEP IT SIMPLE and intuitively reasonable. If others don’t understand the model, they may not use it, and perhaps they shouldn’t: simple models often outperform complicated models in practice.
-- If you use automatic forecasting software, you are still responsible for the model that is chosen, and you should be able to explain its logic to others.  The availability of such software does not make it unnecessary to know how the models work.  Rather, it makes that knowledge even more important.  (By reading what is on this site, you have become partly qualified.) Be aware that in automatic rankings of models, there may be only tiny differences in error stats between the winner and its near competitors, and you may need to take other factors into account in your final selection, such as simplicity, clarity, and intuition. And again, your software cannot make something out of nothing. If your data is not informative or not properly organized to begin with, automatic methods will not turn it into gold.
+- If you use automatic forecasting software, you are still responsible for the model that is chosen, and you should be able to explain its logic to others.  The availability of such software does not make it unnecessary to know how the models work.  Rather, it makes that knowledge even more important. Be aware that in automatic rankings of models, there may be only tiny differences in error stats between the winner and its near competitors, and you may need to take other factors into account in your final selection, such as simplicity, clarity, and intuition. And again, your software cannot make something out of nothing. If your data is not informative or not properly organized to begin with, automatic methods will not turn it into gold.
 - Leave a paper trail, i.e., keep well-annotated records of your model-fitting efforts.  Don’t just save your computer files:  write up notes as you go along.  Someone else (who may be a sharp-penciled auditor or perhaps only yourself 12 months hence) may need to reconstruct what you did and why you did it. Intelligent naming of variables and labeling of tables and charts will make this easier.
 - Neither overstate nor understate the accuracy of your forecast, and do not merely give a point value. Always report standard errors and/or confidence intervals.
 - If different forecasting approaches lead to different results, focus on differences in their underlying assumptions, their sources of data, their intrinsic biases, and their respective margins for error.  Don’t just argue over the outputs.  Look for opportunities to combine independent viewpoints and information.
