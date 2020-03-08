@@ -85,6 +85,7 @@ Authors: Robert Nau
     - [Model fitting steps](#model-fitting-steps-1)
   - [Bottom-line suggestion](#bottom-line-suggestion)
   - [Take-aways](#take-aways)
+  - [Seasonal differencing in ARIMA models](#seasonal-differencing-in-arima-models)
   - [Summary of rules for identifying ARIMA models](#summary-of-rules-for-identifying-arima-models)
     - [Identifying the order of differencing and the constant:](#identifying-the-order-of-differencing-and-the-constant)
     - [Identifying the numbers of AR and MA terms:](#identifying-the-numbers-of-ar-and-ma-terms)
@@ -653,6 +654,13 @@ Strong seasonal pattern, try:
 ## Take-aways
 - **Advantages**: solid underlying theory, stable estimation of time-varying trends and seasonal patterns, relatively few parameters.
 - **Drawbacks**: no explicit seasonal indices, hard to interpret coefficients or explain “how the model works”, danger of overfitting or mis-identification if not used with care.
+
+## Seasonal differencing in ARIMA models
+**Seasonal difference**: series of changes from one season to the next. i.e. 12 periods in a season -> seasonal difference = `Y(t)-Y(t-12)`
+
+Usually removes the gross features of seasonality from a series, as well as most of the trend.
+
+**First difference of the seasonal difference** = `(Y(t)-Y(t-12))-(Y(t-1)-Y(t-13))`
 
 ## Summary of rules for identifying ARIMA models
 [Direct Source for the text below](https://people.duke.edu/~rnau/arimrule.htm)
